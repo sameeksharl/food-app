@@ -1,5 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final1/screens/home/Mainpage.dart';
 import 'package:final1/screens/home/brew_list.dart';
+import 'package:final1/screens/home/settings_form.dart';
 import 'package:final1/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/service/database.dart';
@@ -11,8 +13,22 @@ import 'package:final1/models/brew.dart';
 class Home extends StatelessWidget {
 
   final AuthService _auth=AuthService();
+  
   @override
   Widget build(BuildContext context) {
+
+    void _showSettingsPanel(){
+      showModalBottomSheet(context: context, builder: (context){
+        return Container(
+          padding:EdgeInsets.symmetric(vertical:20.0,horizontal:60.0),
+          child:SettingsForm(),
+        );
+
+
+
+
+    });
+    }
     return StreamProvider<List<Brew>>.value(
       value:DatabaseService().brews,
       child:Scaffold(
@@ -30,7 +46,14 @@ class Home extends StatelessWidget {
              },
 
 
-          )
+
+          ),
+          FlatButton.icon(onPressed: ()=>_showSettingsPanel(), icon: Icon(Icons.settings), label: Text('settings')),
+          FlatButton.icon(onPressed:(){Navigator.push(
+            context,MaterialPageRoute(
+              builder:(context)=>Mainpage()) 
+          );}, icon: Icon(Icons.fastfood), label: Text('choose'))
+          
         ],
 
       ),
@@ -40,5 +63,20 @@ class Home extends StatelessWidget {
 
 
     );
+  }
+}
+
+
+class Mainpage extends StatefulWidget {
+  @override
+  _MainpageState createState() => _MainpageState();
+}
+
+class _MainpageState extends State<Mainpage>
+   {
+
+  @override
+  Widget build(BuildContext context) {
+    return Selection();
   }
 }
