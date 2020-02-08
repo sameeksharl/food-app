@@ -1,6 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final1/screens/home/Mainpage.dart';
-import 'package:final1/screens/home/brew_list.dart';
+//import 'package:final1/screens/home/brew_list.dart';
 import 'package:final1/screens/home/settings_form.dart';
 import 'package:final1/service/auth.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,19 @@ class Home extends StatelessWidget {
         ],
 
       ),
-      body:BrewList(),
+      body:Container(
+        decoration: BoxDecoration(
+          image:DecorationImage(
+            image:AssetImage('assets/maxresdefault.jpg'),
+            fit:BoxFit.cover,
+          ),
+
+        ),
+
+
+
+
+      ),
 
       ),
 

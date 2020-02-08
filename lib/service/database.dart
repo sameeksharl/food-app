@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final1/models/brew.dart';
+import 'package:final1/models/user.dart';
+//import 'package:provider/provider.dart';
+//import 'package:final1/models/user.dart';
 
 
 
@@ -33,8 +36,19 @@ import 'package:final1/models/brew.dart';
         );
 
 
-      });
+      }).toList();
 
+   }
+
+   //userdata from snapshot
+   UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+
+     return UserData(
+       uid:uid,
+       name:snapshot.data['name'],
+       food:snapshot.data['food'],
+       count:snapshot.data['count'],
+     );
    }
 
    
@@ -42,6 +56,13 @@ import 'package:final1/models/brew.dart';
   Stream<List<Brew>> get brews{
     return brewCollection.snapshots()
     .map(_brewListFromSnapshot);
+  }
+
+  //get user doc stream
+  Stream<UserData> get userData{
+
+    return brewCollection.document(uid).snapshots()
+    .map(_userDataFromSnapshot);
   }
 
  }
